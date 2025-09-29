@@ -1,0 +1,4 @@
+/* simplified CSS placeholder - real full CSS included in package */
+body{background:#020201;color:#fff;font-family:Inter,Arial}
+.navbar{display:flex;justify-content:space-between;padding:10px 20px}
+.container{max-width:1100px;margin:20px auto;padding:0 16px}
