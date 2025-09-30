@@ -4,7 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>Demon Slayer ROI — Market Insights | Amir Elshimi</title>
+  <!-- Link to your main CSS -->
   <link href="../style.css" rel="stylesheet">
+  <!-- Chart.js CDN -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <style>
     .analysis {margin-top:24px;margin-bottom:32px;}
@@ -76,11 +78,11 @@
     const hollywoodData = [null, null, null, 8, 9, 7.5];
 
     const gradAnime = ctx.createLinearGradient(0,0,0,400);
-    gradAnime.addColorStop(0,'rgba(17,105,74,0.85)'); // emerald
+    gradAnime.addColorStop(0,'rgba(17,105,74,0.85)');
     gradAnime.addColorStop(1,'rgba(17,105,74,0.2)');
 
     const gradHollywood = ctx.createLinearGradient(0,0,0,400);
-    gradHollywood.addColorStop(0,'rgba(212,175,55,0.85)'); // gold
+    gradHollywood.addColorStop(0,'rgba(212,175,55,0.85)');
     gradHollywood.addColorStop(1,'rgba(212,175,55,0.2)');
 
     new Chart(ctx, {
