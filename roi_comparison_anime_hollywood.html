@@ -1,0 +1,119 @@
+
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>ROI Comparison: Anime vs Hollywood Movies</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Inter:wght@300;400;600&display=swap');
+    :root{
+      --bg1: #0f1724;
+      --bg2: #071124;
+      --accent1: #7c3aed;
+      --accent2: #06b6d4;
+      --text-light: #dbeafe;
+      --text-muted: #9ca3af;
+    }
+    html,body{height:100%;margin:0;background:linear-gradient(135deg,var(--bg1),var(--bg2));font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;color:var(--text-light);}
+    .container{max-width:1100px;margin:40px auto;padding:20px;border-radius:16px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));box-shadow: 0 10px 40px rgba(2,6,23,0.6);}
+    h1{font-family:Orbitron,monospace;font-size:24px;margin:0 0 4px 0;letter-spacing:0.6px}
+    h2{font-weight:400;color:var(--text-muted);font-size:14px;margin:0 0 16px 0;}
+    canvas{display:block;max-width:100%;height:520px!important}
+    footer{margin-top:20px;font-size:13px;color:var(--text-muted);text-align:right;}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>ROI Comparison: Anime vs Hollywood Movies</h1>
+    <h2>Box Office Gross / Production Budget (Illustrative Data)</h2>
+    <canvas id="roiChart"></canvas>
+    <footer>Created by Amir Elshimi, CFA</footer>
+  </div>
+
+<script>
+// Iconic movie labels
+const labels = [
+  "Demon Slayer: Mugen Train (Anime)",
+  "Your Name (Anime)",
+  "Spirited Away (Anime)",
+  "Avengers: Endgame (Hollywood)",
+  "Spider-Man: No Way Home (Hollywood)",
+  "Avatar (Hollywood)"
+];
+
+// ROI multiples (approximate)
+const animeROIs = [32, 35, 20];
+const hollywoodROIs = [8, 9, 7.5];
+
+// Align datasets
+const animeData = [...animeROIs, null, null, null];
+const hollywoodData = [null, null, null, ...hollywoodROIs];
+
+const ctx = document.getElementById('roiChart').getContext('2d');
+
+// Gradients
+const gradAnime = ctx.createLinearGradient(0,0,0,400);
+gradAnime.addColorStop(0,'rgba(124,58,237,0.85)');
+gradAnime.addColorStop(1,'rgba(124,58,237,0.2)');
+const gradHollywood = ctx.createLinearGradient(0,0,0,400);
+gradHollywood.addColorStop(0,'rgba(6,182,212,0.85)');
+gradHollywood.addColorStop(1,'rgba(6,182,212,0.2)');
+
+const data = {
+  labels: labels,
+  datasets: [
+    {
+      label: 'Anime ROI (×)',
+      data: animeData,
+      type: 'bar',
+      backgroundColor: gradAnime,
+      borderColor: 'rgba(124,58,237,0.95)',
+      borderWidth: 1.5,
+      borderRadius: 8
+    },
+    {
+      label: 'Hollywood ROI (×)',
+      data: hollywoodData,
+      type: 'bar',
+      backgroundColor: gradHollywood,
+      borderColor: 'rgba(6,182,212,0.95)',
+      borderWidth: 1.5,
+      borderRadius: 8
+    }
+  ]
+};
+
+const config = {
+  type: 'bar',
+  data: data,
+  options: {
+    responsive:true,
+    plugins: {
+      legend: { labels:{color:'#dbeafe'} },
+      tooltip: {
+        callbacks:{
+          label: function(ctx){return ctx.dataset.label + ': ' + (ctx.raw===null?'N/A':ctx.raw + '×');}
+        },
+        backgroundColor: 'rgba(2,6,23,0.98)',
+        titleColor: '#ffffff',
+        bodyColor: '#cfefff'
+      }
+    },
+    scales: {
+      x:{ticks:{color:'#dbeafe'}, grid:{display:false}},
+      y:{
+        beginAtZero:true,
+        suggestedMax:40,
+        ticks:{color:'#dbeafe', callback:function(v){return v+'×';}},
+        grid:{color:'rgba(255,255,255,0.04)', borderDash:[6,4]}
+      }
+    }
+  }
+};
+
+const roiChart = new Chart(ctx, config);
+</script>
+</body>
+</html>
