@@ -1,144 +1,61 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
+  <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Demon Slayer ROI — Market Insights | Amir Elshimi</title>
-  <link href="../style.css" rel="stylesheet">
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <style>
-    /* Specific styles for blog post chart */
-    .analysis {margin-top:24px;margin-bottom:32px;}
-    canvas {max-width:100%;height:450px!important;margin-top:12px;}
-    h1,h2 {margin-bottom:12px;}
-    p {line-height:1.6;color:#e6eef8;}
-  </style>
+  <title>Insights — Market Reports & Articles | Amir Elshimi</title>
+  <link href="style.css" rel="stylesheet">
 </head>
 <body>
+
+  <!-- NAVBAR -->
   <nav class='navbar'>
-    <div class='logo'><a href='../index.html'>Vision • Amir Elshimi</a></div>
+    <div class='logo'><a href='index.html'>Vision • Amir Elshimi</a></div>
     <div class='nav-links'>
-      <a href='../about.html'>Who I Am</a>
-      <a href='../projects.html'>Projects</a>
-      <a href='../blog.html'>Insights</a>
-      <a href='../contact.html'>Contact</a>
-      <a class='cv-btn' href='../Amir_Elshimi_CV.pdf' target='_blank'>Resume</a>
+      <a href='about.html'>Who I Am</a>
+      <a href='projects.html'>Projects</a>
+      <a href='blog.html'>Insights</a>
+      <a href='contact.html'>Contact</a>
+      <a class='cv-btn' href='Amir_Elshimi_CV.pdf' target='_blank'>Resume</a>
     </div>
   </nav>
 
-  <main class='container'>
-    <section class='section blog'>
-      <h1>Demon Slayer: The Investment Story Behind the Record-Breaking Movie</h1>
-      <p class='lead'>
-        In 2020, <strong>'Demon Slayer: Mugen Train'</strong> became the highest-grossing anime film ever, achieving a phenomenal ROI of ~32× on its production budget. Beyond entertainment, this movie demonstrates how strategic IP, franchise popularity, and global distribution can generate exceptional returns.
-      </p>
+  <!-- MAIN CONTENT -->
+  <main class="container">
+    <section class="section blog">
+      <h1 class="section-title">Market Insights</h1>
+      <p class="lead">Short reports, industry thinking, and case study summaries. Click on a post to read in detail.</p>
 
-      <section class="analysis">
-        <h2>ROI Analysis</h2>
-        <canvas id="roiChart"></canvas>
-        <p>
-          Production Budget: ~$15 million USD<br>
-          Box Office Gross: ~$480 million USD<br>
-          ROI = Gross ÷ Budget ≈ 32×<br>
-          <em>For context, Avengers: Endgame achieved ~8× ROI.</em>
-        </p>
-      </section>
+      <!-- POSTS GRID -->
+      <div class="post-grid">
+        <!-- Post 1: Demon Slayer -->
+        <article class="post-card">
+          <h3>Demon Slayer: ROI Investment Story</h3>
+          <p class="excerpt">Explore the record-breaking returns of Demon Slayer and the strategy behind its global success.</p>
+          <a class="read" href="blog_posts/demon-slayer-roi.html">Read</a>
+        </article>
 
-      <section class="insight">
-        <h2>Investment Insight</h2>
-        <p>
-          Demon Slayer capitalized on an already popular manga and TV series, reducing marketing risk. Strategic timing during domestic and international release windows maximized audience reach. Licensing, merchandising, and streaming deals added secondary revenue streams beyond box office. This illustrates high ROI potential in niche entertainment markets when leveraging strong IP and global distribution.
-        </p>
-        <p>
-          Investors can learn that cultural IP combined with global strategy can deliver outsized returns even in smaller-budget markets. Anime is not only a growing entertainment sector but a high-leverage investment opportunity for studios and content investors.
-        </p>
-      </section>
+        <!-- Post 2: Example placeholder -->
+        <article class="post-card">
+          <h3>Egypt Real Estate Outlook — Short Brief</h3>
+          <p class="excerpt">A concise look at current trends and investment signals for residential and commercial markets.</p>
+          <a class="read" href="blog_posts/real-estate-outlook.html">Read</a>
+        </article>
 
+        <!-- Post 3: Example placeholder -->
+        <article class="post-card">
+          <h3>Feasibility Studies: Why They Matter</h3>
+          <p class="excerpt">How structured feasibility studies reduce risk and improve investor confidence.</p>
+          <a class="read" href="blog_posts/feasibility-matter.html">Read</a>
+        </article>
+      </div>
     </section>
   </main>
 
+  <!-- FOOTER -->
   <footer class='site-footer'>
     <p>© 2025 Amir Elshimi</p>
   </footer>
 
-  <script>
-    // ROI Chart Data
-    const labels = [
-      "Demon Slayer: Mugen Train (Anime)",
-      "Your Name (Anime)",
-      "Spirited Away (Anime)",
-      "Avengers: Endgame (Hollywood)",
-      "Spider-Man: No Way Home (Hollywood)",
-      "Avatar (Hollywood)"
-    ];
-
-    const animeROIs = [32, 35, 20];
-    const hollywoodROIs = [8, 9, 7.5];
-    const animeData = [...animeROIs, null, null, null];
-    const hollywoodData = [null, null, null, ...hollywoodROIs];
-
-    const ctx = document.getElementById('roiChart').getContext('2d');
-
-    const gradAnime = ctx.createLinearGradient(0,0,0,400);
-    gradAnime.addColorStop(0,'rgba(124,58,237,0.85)');
-    gradAnime.addColorStop(1,'rgba(124,58,237,0.2)');
-    const gradHollywood = ctx.createLinearGradient(0,0,0,400);
-    gradHollywood.addColorStop(0,'rgba(6,182,212,0.85)');
-    gradHollywood.addColorStop(1,'rgba(6,182,212,0.2)');
-
-    const data = {
-      labels: labels,
-      datasets: [
-        {
-          label: 'Anime ROI (×)',
-          data: animeData,
-          type: 'bar',
-          backgroundColor: gradAnime,
-          borderColor: 'rgba(124,58,237,0.95)',
-          borderWidth: 1.5,
-          borderRadius: 8
-        },
-        {
-          label: 'Hollywood ROI (×)',
-          data: hollywoodData,
-          type: 'bar',
-          backgroundColor: gradHollywood,
-          borderColor: 'rgba(6,182,212,0.95)',
-          borderWidth: 1.5,
-          borderRadius: 8
-        }
-      ]
-    };
-
-    const config = {
-      type: 'bar',
-      data: data,
-      options: {
-        responsive:true,
-        plugins: {
-          legend: { labels:{color:'#dbeafe'} },
-          tooltip: {
-            callbacks:{
-              label: function(ctx){return ctx.dataset.label + ': ' + (ctx.raw===null?'N/A':ctx.raw + '×');}
-            },
-            backgroundColor: 'rgba(2,6,23,0.98)',
-            titleColor: '#ffffff',
-            bodyColor: '#cfefff'
-          }
-        },
-        scales: {
-          x:{ticks:{color:'#dbeafe'}, grid:{display:false}},
-          y:{
-            beginAtZero:true,
-            suggestedMax:40,
-            ticks:{color:'#dbeafe', callback:function(v){return v+'×';}},
-            grid:{color:'rgba(255,255,255,0.04)', borderDash:[6,4]}
-          }
-        }
-      }
-    };
-
-    const roiChart = new Chart(ctx, config);
-  </script>
 </body>
 </html>
