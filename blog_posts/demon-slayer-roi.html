@@ -1,1 +1,117 @@
-<!-- Demon Slayer blog post will go here -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Demon Slayer ROI — Market Insights | Amir Elshimi</title>
+  <link href="../style.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    .analysis {margin-top:24px;margin-bottom:32px;}
+    canvas {
+      max-width:100%;
+      height:480px!important;
+      margin-top:16px;
+      border-radius:12px;
+      background:rgba(255,255,255,0.02);
+      box-shadow:0 4px 20px rgba(0,0,0,0.4);
+    }
+    .analysis h2, .insight h2 {color:#e6edf3;margin-bottom:12px;}
+    .analysis p, .insight p {color:#e6edf3;line-height:1.6;margin-top:8px;}
+  </style>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav class='navbar'>
+    <div class='logo'><a href='../index.html'>Vision • Amir Elshimi</a></div>
+    <div class='nav-links'>
+      <a href='../about.html'>Who I Am</a>
+      <a href='../projects.html'>Projects</a>
+      <a href='../blog.html'>Insights</a>
+      <a href='../contact.html'>Contact</a>
+      <a class='cv-btn' href='../Amir_Elshimi_CV.pdf' target='_blank'>Resume</a>
+    </div>
+  </nav>
+
+  <!-- MAIN CONTENT -->
+  <main class="container">
+
+    <!-- ANALYSIS SECTION -->
+    <section class="analysis">
+      <h2>Demon Slayer ROI Analysis</h2>
+      <canvas id="roiChart"></canvas>
+      <p>Production Budget: ~$15M | Box Office: ~$480M | ROI ≈ 32×</p>
+      <p>For comparison: Avengers: Endgame achieved ~8× ROI, Spider-Man: No Way Home ~9×.</p>
+    </section>
+
+    <!-- INSIGHT / STORY SECTION -->
+    <section class="insight">
+      <h2>Investment Story</h2>
+      <p>Demon Slayer leveraged a strong existing IP and a strategic release schedule to maximize global audience reach while keeping marketing costs low. Licensing, merchandising, and streaming deals provided additional revenue streams.</p>
+      <p>This shows that even a relatively small-budget anime movie can achieve extraordinary returns when combining cultural relevance, global distribution, and smart monetization strategies. Anime films are becoming a high-leverage opportunity for investors seeking outsized ROI.</p>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class='site-footer'>
+    <p>© 2025 Amir Elshimi</p>
+  </footer>
+
+  <!-- CHART.JS SCRIPT -->
+  <script>
+    const ctx = document.getElementById('roiChart').getContext('2d');
+
+    const labels = [
+      "Demon Slayer: Mugen Train (Anime)",
+      "Your Name (Anime)",
+      "Spirited Away (Anime)",
+      "Avengers: Endgame (Hollywood)",
+      "Spider-Man: No Way Home (Hollywood)",
+      "Avatar (Hollywood)"
+    ];
+
+    const animeData = [32, 35, 20, null, null, null];
+    const hollywoodData = [null, null, null, 8, 9, 7.5];
+
+    const gradAnime = ctx.createLinearGradient(0,0,0,400);
+    gradAnime.addColorStop(0,'rgba(17,105,74,0.85)'); // emerald
+    gradAnime.addColorStop(1,'rgba(17,105,74,0.2)');
+
+    const gradHollywood = ctx.createLinearGradient(0,0,0,400);
+    gradHollywood.addColorStop(0,'rgba(212,175,55,0.85)'); // gold
+    gradHollywood.addColorStop(1,'rgba(212,175,55,0.2)');
+
+    new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: labels,
+        datasets: [
+          { label: 'Anime ROI (×)', data: animeData, backgroundColor: gradAnime, borderColor:'rgba(17,105,74,0.95)', borderWidth:1.5, borderRadius:8 },
+          { label: 'Hollywood ROI (×)', data: hollywoodData, backgroundColor: gradHollywood, borderColor:'rgba(212,175,55,0.95)', borderWidth:1.5, borderRadius:8 }
+        ]
+      },
+      options: {
+        responsive:true,
+        plugins: {
+          legend:{labels:{color:'#e6edf3'}},
+          tooltip:{
+            callbacks:{
+              label: function(ctx){return ctx.dataset.label + ': ' + (ctx.raw===null?'N/A':ctx.raw + '×');}
+            },
+            backgroundColor:'rgba(2,6,23,0.98)',
+            titleColor:'#ffffff',
+            bodyColor:'#cfefff'
+          }
+        },
+        scales: {
+          x:{ticks:{color:'#e6edf3'}, grid:{display:false}},
+          y:{beginAtZero:true, suggestedMax:40, ticks:{color:'#e6edf3', callback:function(v){return v+'×';}}, grid:{color:'rgba(255,255,255,0.04)', borderDash:[6,4]}}
+        }
+      }
+    });
+  </script>
+
+</body>
+</html>
