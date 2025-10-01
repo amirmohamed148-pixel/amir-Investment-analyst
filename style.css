@@ -182,3 +182,51 @@ body::before {
   color: var(--muted);
   font-size: 0.9rem;
 }
+
+/* ===========================
+   Mobile Responsive Fixes
+   =========================== */
+@media (max-width: 768px) {
+  .container {
+    padding: 16px;
+  }
+
+  h2 {
+    font-size: 1.8rem;
+  }
+
+  p {
+    font-size: 0.95rem;
+  }
+
+  canvas {
+    width: 100% !important;
+    height: auto !important;
+  }
+
+  .hero {
+    padding: 20px 12px;
+  }
+
+  .hero-title {
+    font-size: 2rem;
+  }
+
+  .hero-sub {
+    font-size: 0.95rem;
+  }
+
+  .navbar {
+    padding: 10px 12px;
+  }
+
+  .nav-links a {
+    margin-left: 12px;
+    font-size: 0.95rem;
+  }
+
+  .cv-btn {
+    padding: 6px 10px;
+    font-size: 0.9rem;
+  }
+}
