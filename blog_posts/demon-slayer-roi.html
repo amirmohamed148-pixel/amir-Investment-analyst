@@ -56,35 +56,40 @@ canvas { width:100%; max-width:900px; height:500px !important; display:block; ma
 
 footer { text-align:center; padding:20px; color: var(--muted); font-size:0.9rem; }
 
-  /* Responsive adjustments for charts */
-@media (max-width: 768px) {
-  canvas {
-    height: 300px !important; /* smaller height on mobile */
-  }
-
-  .card {
-    padding: 16px; /* reduce padding for mobile */
-  }
-
-  h2 {
-    font-size: 1.8rem; /* smaller headings on mobile */
-  }
-
-  p {
-    font-size: 0.95rem; /* smaller text on mobile */
-  }
-}
-  .chart-wrapper {
+ /* Chart Wrapper & Canvas */
+.chart-wrapper {
   width: 100%;
-  overflow-x: auto; /* allows horizontal scroll if needed */
+  overflow-x: auto;
   padding-bottom: 16px;
 }
 
+canvas {
+  width: 100% !important;
+  max-width: 900px;
+  height: 500px;
+  display: block;
+  margin: 24px auto;
+  border-radius: 12px;
+  background: rgba(255,255,255,0.02);
+  box-shadow: 0 6px 40px rgba(0,0,0,0.6);
+}
+
+/* Responsive adjustments for mobile */
 @media (max-width: 768px) {
   canvas {
-    height: 350px !important; /* smaller height for mobile */
+    height: 350px !important;
+  }
+  .card {
+    padding: 16px;
+  }
+  h2 {
+    font-size: 1.8rem;
+  }
+  p {
+    font-size: 0.95rem;
   }
 }
+
 
 
 </style>
@@ -152,51 +157,54 @@ const gradHollywood = ctx.createLinearGradient(0,0,0,400);
 gradHollywood.addColorStop(0,'rgba(212,175,55,0.9)');
 gradHollywood.addColorStop(1,'rgba(212,175,55,0.3)');
 
-new Chart(ctx,{
-  type:'bar',
-  data:{
-    labels:labels,
-    datasets:[
-      { label:'Anime ROI (×)', data:animeData, backgroundColor:gradAnime, borderColor:'rgba(17,105,74,1)', borderWidth:2, borderRadius:10 },
-      { label:'Hollywood ROI (×)', data:hollywoodData, backgroundColor:gradHollywood, borderColor:'rgba(212,175,55,1)', borderWidth:2, borderRadius:10 }
+// Switch to horizontal bars on small screens
+const isMobile = window.innerWidth < 768;
+
+new Chart(ctx, {
+  type: 'bar',
+  data: {
+    labels: labels,
+    datasets: [
+      { label: 'Anime ROI (×)', data: animeData, backgroundColor: gradAnime, borderColor: 'rgba(17,105,74,1)', borderWidth: 2, borderRadius: 10 },
+      { label: 'Hollywood ROI (×)', data: hollywoodData, backgroundColor: gradHollywood, borderColor: 'rgba(212,175,55,1)', borderWidth: 2, borderRadius: 10 }
     ]
   },
-  options:{
-    responsive:true,
-    maintainAspectRatio:false,
-    animation:{duration:1800,easing:'easeOutQuart'},
-    plugins:{
-      legend:{labels:{color:'#e6edf3', boxWidth:20, padding:15}},
-      tooltip:{
-        callbacks:{
-          label:function(ctx){ return ctx.dataset.label + ': ' + (ctx.raw===0?'N/A':ctx.raw+'×'); }
+  options: {
+    indexAxis: isMobile ? 'y' : 'x', // horizontal bars on mobile
+    responsive: true,
+    maintainAspectRatio: false,
+    animation: { duration: 1800, easing: 'easeOutQuart' },
+    plugins: {
+      legend: { labels: { color: '#e6edf3', boxWidth: 20, padding: 15 } },
+      tooltip: {
+        callbacks: {
+          label: function(ctx) { return ctx.dataset.label + ': ' + (ctx.raw === 0 ? 'N/A' : ctx.raw + '×'); }
         },
-        backgroundColor:'rgba(2,6,23,0.98)',
-        titleColor:'#ffffff',
-        bodyColor:'#cfefff',
-        padding:12,
-        displayColors:true
+        backgroundColor: 'rgba(2,6,23,0.98)',
+        titleColor: '#ffffff',
+        bodyColor: '#cfefff',
+        padding: 12,
+        displayColors: true
       }
     },
-    scales:{
-      x:{
-        beginAtZero:true,
-        suggestedMax:40,
-        ticks:{
-          color:'#e6edf3',
-          callback:function(v){ return v+'×'; },
-          stepSize:5
+    scales: {
+      x: {
+        beginAtZero: true,
+        suggestedMax: 40,
+        ticks: {
+          color: '#e6edf3',
+          callback: function(v){ return v + '×'; },
+          stepSize: 5
         },
-        grid:{color:'rgba(255,255,255,0.04)', borderDash:[6,4]}
+        grid: { color: 'rgba(255,255,255,0.04)', borderDash: [6,4] }
       },
-      y:{
-        ticks:{color:'#e6edf3'},
-        grid:{display:false}
+      y: {
+        ticks: { color: '#e6edf3' },
+        grid: { display: false }
       }
     }
   }
 });
-
 
 
 </body>
