@@ -1,326 +1,151 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Demon Slayer ROI Analysis — Amir Elshimi</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Demon Slayer ROI — Amir Elshimi</title>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <style>
-  /* Combo Chart & Article Page Styles */
-  body {
-    font-family: "Inter", sans-serif;
-    background: var(--bg-dark);
-    color: var(--text);
-    margin: 0;
-    padding: 0;
-    line-height: 1.6;
-  }
+:root {
+  --bg-dark: #0d1117;
+  --bg-light: #161b22;
+  --primary: #11694a;
+  --primary-light: #1ea36f;
+  --accent: #d4af37;
+  --text: #e6edf3;
+  --muted: #9ba3b0;
+  --card: rgba(255,255,255,0.03);
+  --radius: 12px;
+  --max-width: 1200px;
+}
 
-  main {
-    max-width: var(--max-width);
-    margin: 0 auto;
-    padding: 40px 20px;
-  }
+body {
+  font-family:"Inter",sans-serif;
+  background: var(--bg-dark);
+  color: var(--text);
+  margin:0; padding:0;
+  line-height:1.6;
+}
+body::before {
+  content:"";
+  position:fixed; inset:0; z-index:-1;
+  background: radial-gradient(circle at top left, #11694a15, transparent 60%),
+              radial-gradient(circle at bottom right, #d4af3715, transparent 60%);
+}
+nav {
+  background: var(--bg-light);
+  padding:14px 22px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  border-bottom:1px solid rgba(255,255,255,0.08);
+}
+nav a { color:var(--muted); margin-left:16px; text-decoration:none; font-weight:600; }
+nav a:hover { color: var(--primary-light); }
+.logo a { font-family:"Poppins",sans-serif; font-weight:700; color: var(--text); text-decoration:none; }
 
-  h1, h2, h3 {
-    font-family: "Poppins", sans-serif;
-    color: white;
-    margin-bottom: 20px;
-  }
+.container { max-width: var(--max-width); margin:0 auto; padding:24px; }
 
-  p {
-    margin-bottom: 16px;
-  }
+.card { background: var(--card); padding:24px; border-radius:var(--radius); border:1px solid rgba(255,255,255,0.05); margin-bottom:40px; transition: transform 0.3s ease; }
+.card:hover { transform: translateY(-4px); }
+h2 { font-family:"Poppins",sans-serif; margin-bottom:16px; color: var(--text); }
+p { margin-bottom:16px; color: var(--muted); }
 
-  .chart-container {
-    position: relative;
-    width: 100%;
-    max-width: 900px;
-    margin: 40px auto;
-  }
+canvas { width:100%; max-width:900px; height:500px !important; display:block; margin:24px auto; border-radius:12px; background:rgba(255,255,255,0.02); box-shadow:0 6px 40px rgba(0,0,0,0.6); }
 
-  canvas {
-    background: var(--bg-light);
-    border-radius: var(--radius);
-    padding: 20px;
-  }
-
-  .lead {
-    color: var(--muted);
-    font-size: 1.1rem;
-    margin-bottom: 24px;
-  }
-
-  .section-title {
-    font-size: 2.2rem;
-    margin-bottom: 16px;
-  }
-
-  .floating-contact {
-    position: fixed;
-    right: 20px;
-    bottom: 20px;
-    background: var(--primary);
-    color: white;
-    padding: 12px 20px;
-    border-radius: var(--radius);
-    text-decoration: none;
-    font-weight: 700;
-    z-index: 999;
-    transition: background 0.3s;
-  }
-
-  .floating-contact:hover {
-    background: var(--primary-light);
-  }
-
-  .article-content {
-    margin-top: 40px;
-  }
-
-  table {
-    width: 100%;
-    border-collapse: collapse;
-    margin: 24px 0;
-  }
-
-  table, th, td {
-    border: 1px solid rgba(255,255,255,0.2);
-  }
-
-  th, td {
-    padding: 12px;
-    text-align: center;
-    color: white;
-  }
-
-  th {
-    background: rgba(17,105,74,0.5);
-  }
-
-  td {
-    background: rgba(17,105,74,0.2);
-  }
-
-  .highlight {
-    color: var(--accent);
-    font-weight: 700;
-  }
-
+footer { text-align:center; padding:20px; color: var(--muted); font-size:0.9rem; }
 </style>
 </head>
 <body>
 
-<nav class="navbar">
-  <div class="logo"><a href="index.html">Vision • Amir Elshimi</a></div>
-  <div class="nav-links">
-    <a href="about.html">Who I Am</a>
-    <a href="projects.html">Projects</a>
+<nav>
+  <div class="logo"><a href="index.html">Amir Elshimi</a></div>
+  <div>
+    <a href="index.html">Home</a>
     <a href="blog.html">Insights</a>
     <a href="contact.html">Contact</a>
-    <a class="cv-btn" href="Amir_Elshimi_CV.pdf" target="_blank">Resume</a>
   </div>
 </nav>
 
-<main>
-  <section class="article-content">
-    <h1 class="section-title">Demon Slayer: Infinity Castle — The Anime Film That Redefined ROI</h1>
-    <p class="lead">By <span class="highlight">Amir Elshimi</span>, Investment Analyst</p>
+<main class="container">
+  <section class="analysis card">
+    <h2>Demon Slayer: Infinity Castle — ROI Analysis</h2>
+    <canvas id="roiChart"></canvas>
 
-    <p>In July 2025, the global film market witnessed a revolution. <span class="highlight">Demon Slayer: Kimetsu no Yaiba – Infinity Castle</span> hit theaters worldwide, achieving one of the most remarkable returns in cinematic history. With a production budget of <span class="highlight">$20 million</span>, it grossed over <span class="highlight">$605 million</span>, delivering an <span class="highlight">ROI of approximately 30×</span>. This performance positions anime as a compelling investment opportunity in the entertainment industry.</p>
+    <p>The latest installment of the Demon Slayer franchise, "Infinity Castle," exemplifies a paradigm shift in entertainment investment. With a production budget of approximately $20 million and a worldwide box office gross exceeding $605 million, this anime film achieved an exceptional return on investment of roughly 30×. Such numbers are rare in traditional Hollywood, where blockbuster budgets often surpass $200 million and ROIs are typically in the 8–10× range. This stark contrast highlights the efficiency and high-profit potential inherent in well-crafted anime productions.</p>
 
-    <p>The success was built on four pillars: a loyal fanbase, strategic release timing, efficient production, and diversified revenue streams including merchandising and streaming rights.</p>
+    <p>The success of "Infinity Castle" is a reflection of deliberate strategic execution and deep audience understanding. The Demon Slayer franchise leverages a dedicated global fanbase cultivated through manga, anime, and prior cinematic installments. This core audience ensures predictable initial ticket sales while expanding organically through social media buzz, fan communities, and word-of-mouth marketing. For investors and industry analysts, this demonstrates the critical value of strong intellectual property in mitigating risk while optimizing return.</p>
 
-    <h2>Comparative ROI Analysis: Anime vs Hollywood</h2>
+    <p>Beyond production and fan engagement, the distribution strategy played a decisive role. The timing of the release during periods of limited Hollywood competition allowed the film to dominate box office attendance in multiple regions. Coupled with international distribution agreements and streaming partnerships, this multi-channel approach maximized exposure and revenue potential. It underscores a key principle for content investment: efficient monetization often depends not solely on production quality but on holistic ecosystem strategy.</p>
 
-    <div class="chart-container">
-      <canvas id="comboChart"></canvas>
-    </div>
+    <p>From a comparative standpoint, the performance of "Infinity Castle" relative to Hollywood megablocks is illuminating. Films such as Avengers: Endgame and Spider-Man: No Way Home grossed billions in absolute revenue but required production budgets exceeding $200 million, resulting in comparatively lower ROI multiples. In contrast, anime films, with disciplined budgets, can deliver superior ROI, demonstrating that investment efficiency, audience engagement, and cultural resonance can outweigh sheer production scale.</p>
 
-        <h2>Film Performance Data</h2>
-    <p>This table compares the ROI and gross revenue of the latest Demon Slayer movie with major Hollywood films.</p>
+    <p>In addition to box office returns, ancillary revenue streams contribute significantly to the financial profile of successful anime films. Merchandise sales, soundtrack rights, limited edition collectibles, and streaming deals create layers of recurring income. "Infinity Castle" illustrates the potential to transform cultural content into diverse revenue channels, providing investors with predictable, scalable, and high-margin opportunities that are increasingly difficult to achieve in saturated Hollywood markets.</p>
 
-    <table>
-      <thead>
-        <tr>
-          <th>Film Title</th>
-          <th>Genre</th>
-          <th>Production Budget (USD)</th>
-          <th>Worldwide Gross (USD)</th>
-          <th>ROI (×)</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>Demon Slayer: Infinity Castle</td>
-          <td>Anime</td>
-          <td>$20M</td>
-          <td>$605M</td>
-          <td>30×</td>
-        </tr>
-        <tr>
-          <td>Demon Slayer: Mugen Train</td>
-          <td>Anime</td>
-          <td>$15.75M</td>
-          <td>$506M</td>
-          <td>32×</td>
-        </tr>
-        <tr>
-          <td>Avengers: Endgame</td>
-          <td>Hollywood</td>
-          <td>$356M</td>
-          <td>$2.798B</td>
-          <td>7.9×</td>
-        </tr>
-        <tr>
-          <td>Spider-Man: No Way Home</td>
-          <td>Hollywood</td>
-          <td>$200M</td>
-          <td>$1.921B</td>
-          <td>9.6×</td>
-        </tr>
-        <tr>
-          <td>Frozen II</td>
-          <td>Hollywood</td>
-          <td>$150M</td>
-          <td>$1.450B</td>
-          <td>9.7×</td>
-        </tr>
-      </tbody>
-    </table>
+    <p>Examining the broader industry implications, the global anime market is expanding rapidly, driven by increased accessibility through streaming platforms and international licensing. The sustained popularity of franchises such as Demon Slayer demonstrates that culturally relevant content can transcend borders and generate consistently high returns. Investors focusing on media and entertainment assets should recognize anime as a high-potential segment capable of outperforming traditional high-budget film models in both ROI and risk-adjusted returns.</p>
 
-    <p>The chart below visualizes this data. The bars represent worldwide gross revenue (in billions USD), while the line represents ROI. This combo chart highlights how anime films outperform Hollywood blockbusters in **return efficiency**.</p>
+    <p>Strategically, the success of "Infinity Castle" offers several lessons for content creators, studios, and investment professionals. First, leveraging existing IP with an established audience significantly reduces marketing and adoption risk. Second, aligning release schedules to optimize audience reach, timing, and competition can magnify financial outcomes. Finally, diversifying revenue streams through merchandise, international distribution, and streaming ensures financial resilience beyond theatrical revenue.</p>
 
+    <p>In conclusion, the remarkable financial performance of "Infinity Castle" underscores the growing attractiveness of anime as an investment vehicle. Through a combination of cost-effective production, a loyal and global fanbase, strategic marketing, and multi-channel monetization, anime films now present a compelling case for investors seeking high ROI in the media sector. For industry analysts and stakeholders, this represents a shift in the entertainment landscape: smaller-budget, culturally resonant productions can outperform traditional blockbuster models and offer robust, scalable, and sustainable returns for well-informed investors.</p>
   </section>
 </main>
 
-<a href="contact.html" class="floating-contact">Contact</a>
-
-<footer class="site-footer">
-  <p>© 2025 Amir Elshimi</p>
-</footer>
-
-<!-- Chart.js Library -->
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<footer>© 2025 Amir Elshimi</footer>
 
 <script>
-  const ctx = document.getElementById('comboChart').getContext('2d');
+const ctx = document.getElementById('roiChart').getContext('2d');
 
-  const labels = [
-    "Demon Slayer: Infinity Castle",
-    "Demon Slayer: Mugen Train",
-    "Avengers: Endgame",
-    "Spider-Man: No Way Home",
-    "Frozen II"
-  ];
+const labels = [
+  "Demon Slayer: Infinity Castle (Anime)",
+  "Demon Slayer: Mugen Train (Anime)",
+  "Your Name (Anime)",
+  "Avengers: Endgame (Hollywood)",
+  "Spider-Man: No Way Home (Hollywood)",
+  "Avatar (Hollywood)"
+];
 
-  const grossData = [0.605, 0.506, 2.798, 1.921, 1.450]; // in billions USD
-  const roiData = [30, 32, 7.9, 9.6, 9.7];
+const animeData = [30,32,35,0,0,0];
+const hollywoodData = [0,0,0,8,9,7.5];
 
-  const comboChart = new Chart(ctx, {
-    data: {
-      labels: labels,
-      datasets: [
-        {
-          type: 'bar',
-          label: 'Worldwide Gross (Billion USD)',
-          data: grossData,
-          backgroundColor: 'rgba(17,105,74,0.7)',
-          borderRadius: 6
+const gradAnime = ctx.createLinearGradient(0,0,0,400);
+gradAnime.addColorStop(0,'rgba(17,105,74,0.9)');
+gradAnime.addColorStop(1,'rgba(17,105,74,0.3)');
+
+const gradHollywood = ctx.createLinearGradient(0,0,0,400);
+gradHollywood.addColorStop(0,'rgba(212,175,55,0.9)');
+gradHollywood.addColorStop(1,'rgba(212,175,55,0.3)');
+
+new Chart(ctx,{
+  type:'bar',
+  data:{
+    labels:labels,
+    datasets:[
+      { label:'Anime ROI (×)', data:animeData, backgroundColor:gradAnime, borderColor:'rgba(17,105,74,1)', borderWidth:2, borderRadius:10, hoverBackgroundColor:'rgba(17,105,74,1)', hoverBorderColor:'#11694a', hoverBorderWidth:3 },
+      { label:'Hollywood ROI (×)', data:hollywoodData, backgroundColor:gradHollywood, borderColor:'rgba(212,175,55,1)', borderWidth:2, borderRadius:10, hoverBackgroundColor:'rgba(212,175,55,1)', hoverBorderColor:'#d4af37', hoverBorderWidth:3 }
+    ]
+  },
+  options:{
+    responsive:true,
+    animation:{duration:1800,easing:'easeOutQuart'},
+    plugins:{
+      legend:{labels:{color:'#e6edf3'}},
+      tooltip:{
+        callbacks:{
+          label:function(ctx){ return ctx.dataset.label + ': ' + (ctx.raw===0?'N/A':ctx.raw+'×'); }
         },
-        {
-          type: 'line',
-          label: 'ROI (×)',
-          data: roiData,
-          borderColor: '#d4af37',
-          borderWidth: 3,
-          fill: false,
-          tension: 0.3,
-          pointBackgroundColor: '#d4af37',
-          pointRadius: 6
-        }
-      ]
-    },
-    options: {
-      responsive: true,
-      plugins: {
-        legend: {
-          labels: {
-            color: 'white',
-            font: {
-              size: 14,
-              weight: 600
-            }
-          }
-        },
-        tooltip: {
-          mode: 'index',
-          intersect: false,
-          backgroundColor: '#161b22',
-          titleColor: 'white',
-          bodyColor: 'white'
-        }
-      },
-      scales: {
-        y: {
-          beginAtZero: true,
-          color: 'white',
-          title: {
-            display: true,
-            text: 'Revenue (Billion USD) / ROI',
-            color: 'white',
-            font: {
-              size: 14,
-              weight: 600
-            }
-          },
-          ticks: {
-            color: 'white'
-          },
-          grid: {
-            color: 'rgba(255,255,255,0.1)'
-          }
-        },
-        x: {
-          ticks: { color: 'white', font: { weight: 600 } },
-          grid: { color: 'rgba(255,255,255,0.1)' }
-        }
+        backgroundColor:'rgba(2,6,23,0.98)',
+        titleColor:'#ffffff',
+        bodyColor:'#cfefff'
       }
+    },
+    scales:{
+      x:{ticks:{color:'#e6edf3'}, grid:{display:false}},
+      y:{beginAtZero:true, suggestedMax:40, ticks:{color:'#e6edf3', callback:function(v){return v+'×';}}, grid:{color:'rgba(255,255,255,0.04)', borderDash:[6,4]}}
     }
-  });
+  }
+});
 </script>
 
 </body>
 </html>
-
-<section class="article-content">
-  <h2>Why Demon Slayer Films Deliver Exceptional ROI</h2>
-  <p>The extraordinary returns of <span class="highlight">Demon Slayer: Infinity Castle</span> and <span class="highlight">Mugen Train</span> illustrate how strategic content production and audience engagement can generate unprecedented value for investors.</p>
-
-  <h3>1. Strong Source Material and Loyal Fanbase</h3>
-  <p>Both films are based on the highly acclaimed manga series <em>Kimetsu no Yaiba</em>, which has millions of global followers. This built-in audience ensures high opening-week revenues and sustained box office performance through repeat viewings.</p>
-
-  <h3>2. Efficient Production Costs</h3>
-  <p>With production budgets under $21 million, these films achieved gross revenues exceeding half a billion dollars, highlighting **cost efficiency**. For comparison, Hollywood blockbusters like Avengers: Endgame cost over $350 million but deliver lower ROI multiples.</p>
-
-  <h3>3. Strategic Global Release</h3>
-  <p>Careful release scheduling during low-competition periods and targeted marketing campaigns amplified visibility. Early ticket sales and collaborations with international distributors further boosted reach and revenue.</p>
-
-  <h3>4. Diversified Revenue Streams</h3>
-  <p>Beyond theater revenue, Demon Slayer films generate income from merchandise, streaming rights, and international licensing. These **secondary revenue streams** enhance overall profitability and reduce risk.</p>
-
-  <h2>Investment Insights for Analysts</h2>
-  <ul>
-    <li><strong>High Return Efficiency:</strong> Anime films deliver ROIs 3–4× higher than comparable Hollywood productions.</li>
-    <li><strong>Global Market Expansion:</strong> Streaming platforms and international audiences create scalable revenue potential.</li>
-    <li><strong>Franchise Potential:</strong> Successful anime IPs can produce sequels, spin-offs, and merchandise revenue streams, further increasing lifetime value.</li>
-    <li><strong>Data-Driven Release Strategy:</strong> Optimal timing and fan engagement analytics reduce marketing spend and maximize revenue impact.</li>
-  </ul>
-
-  <h2>Conclusion</h2>
-  <p>From a CFA-style investment analysis perspective, anime films like <span class="highlight">Demon Slayer: Infinity Castle</span> represent a **unique high-return opportunity** within the media industry. Investors should note the combination of **efficient production, global appeal, and franchise potential** as a powerful lever for profitability.</p>
-
-  <p>By combining quantitative analysis with storytelling, this case study demonstrates the increasing value of **anime IP as an asset class** in entertainment investments. For forward-looking strategies, integrating anime films into a diversified media portfolio could yield **superior risk-adjusted returns** compared to traditional Hollywood blockbusters.</p>
-</section>
-
