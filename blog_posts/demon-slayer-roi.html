@@ -63,57 +63,63 @@
 
   <!-- CHART.JS SCRIPT -->
   <script>
-    const ctx = document.getElementById('roiChart').getContext('2d');
+    <script>
+  const ctx = document.getElementById('roiChart').getContext('2d');
 
-    const labels = [
-      "Demon Slayer: Mugen Train (Anime)",
-      "Your Name (Anime)",
-      "Spirited Away (Anime)",
-      "Avengers: Endgame (Hollywood)",
-      "Spider-Man: No Way Home (Hollywood)",
-      "Avatar (Hollywood)"
-    ];
+  const labels = [
+    "Demon Slayer: Mugen Train (Anime)",
+    "Your Name (Anime)",
+    "Spirited Away (Anime)",
+    "Avengers: Endgame (Hollywood)",
+    "Spider-Man: No Way Home (Hollywood)",
+    "Avatar (Hollywood)"
+  ];
 
-    const animeData = [32, 35, 20, null, null, null];
-    const hollywoodData = [null, null, null, 8, 9, 7.5];
+  const animeData = [32, 35, 20, null, null, null];
+  const hollywoodData = [null, null, null, 8, 9, 7.5];
 
-    const gradAnime = ctx.createLinearGradient(0,0,0,400);
-    gradAnime.addColorStop(0,'rgba(17,105,74,0.85)');
-    gradAnime.addColorStop(1,'rgba(17,105,74,0.2)');
+  const gradAnime = ctx.createLinearGradient(0,0,0,400);
+  gradAnime.addColorStop(0,'rgba(17,105,74,0.85)');
+  gradAnime.addColorStop(1,'rgba(17,105,74,0.2)');
 
-    const gradHollywood = ctx.createLinearGradient(0,0,0,400);
-    gradHollywood.addColorStop(0,'rgba(212,175,55,0.85)');
-    gradHollywood.addColorStop(1,'rgba(212,175,55,0.2)');
+  const gradHollywood = ctx.createLinearGradient(0,0,0,400);
+  gradHollywood.addColorStop(0,'rgba(212,175,55,0.85)');
+  gradHollywood.addColorStop(1,'rgba(212,175,55,0.2)');
 
-    new Chart(ctx, {
-      type: 'bar',
-      data: {
-        labels: labels,
-        datasets: [
-          { label: 'Anime ROI (×)', data: animeData, backgroundColor: gradAnime, borderColor:'rgba(17,105,74,0.95)', borderWidth:1.5, borderRadius:8 },
-          { label: 'Hollywood ROI (×)', data: hollywoodData, backgroundColor: gradHollywood, borderColor:'rgba(212,175,55,0.95)', borderWidth:1.5, borderRadius:8 }
-        ]
+  new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: labels,
+      datasets: [
+        { label: 'Anime ROI (×)', data: animeData, backgroundColor: gradAnime, borderColor:'rgba(17,105,74,0.95)', borderWidth:1.5, borderRadius:8 },
+        { label: 'Hollywood ROI (×)', data: hollywoodData, backgroundColor: gradHollywood, borderColor:'rgba(212,175,55,0.95)', borderWidth:1.5, borderRadius:8 }
+      ]
+    },
+    options: {
+      responsive:true,
+      animation: {
+        duration: 1500,
+        easing: 'easeOutQuart' // smooth futuristic effect
       },
-      options: {
-        responsive:true,
-        plugins: {
-          legend:{labels:{color:'#e6edf3'}},
-          tooltip:{
-            callbacks:{
-              label: function(ctx){return ctx.dataset.label + ': ' + (ctx.raw===null?'N/A':ctx.raw + '×');}
-            },
-            backgroundColor:'rgba(2,6,23,0.98)',
-            titleColor:'#ffffff',
-            bodyColor:'#cfefff'
-          }
-        },
-        scales: {
-          x:{ticks:{color:'#e6edf3'}, grid:{display:false}},
-          y:{beginAtZero:true, suggestedMax:40, ticks:{color:'#e6edf3', callback:function(v){return v+'×';}}, grid:{color:'rgba(255,255,255,0.04)', borderDash:[6,4]}}
+      plugins: {
+        legend:{labels:{color:'#e6edf3'}},
+        tooltip:{
+          callbacks:{
+            label: function(ctx){return ctx.dataset.label + ': ' + (ctx.raw===null?'N/A':ctx.raw + '×');}
+          },
+          backgroundColor:'rgba(2,6,23,0.98)',
+          titleColor:'#ffffff',
+          bodyColor:'#cfefff'
         }
+      },
+      scales: {
+        x:{ticks:{color:'#e6edf3'}, grid:{display:false}},
+        y:{beginAtZero:true, suggestedMax:40, ticks:{color:'#e6edf3', callback:function(v){return v+'×';}}, grid:{color:'rgba(255,255,255,0.04)', borderDash:[6,4]}}
       }
-    });
-  </script>
+    }
+  });
+</script>
+
 
 </body>
 </html>
