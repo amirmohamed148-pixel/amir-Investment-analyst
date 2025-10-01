@@ -1,144 +1,294 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Demon Slayer ROI — Amir Elshimi</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Demon Slayer ROI Analysis — Amir Elshimi</title>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<link rel="stylesheet" href="style.css">
 <style>
-:root {
-  --bg-dark: #0d1117;
-  --bg-light: #161b22;
-  --primary: #11694a;
-  --primary-light: #1ea36f;
-  --accent: #d4af37;
-  --text: #e6edf3;
-  --muted: #9ba3b0;
-  --card: rgba(255,255,255,0.03);
-  --radius: 12px;
-  --max-width: 1200px;
-}
+  /* Combo Chart & Article Page Styles */
+  body {
+    font-family: "Inter", sans-serif;
+    background: var(--bg-dark);
+    color: var(--text);
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+  }
 
-body {
-  font-family:"Inter",sans-serif;
-  background: var(--bg-dark);
-  color: var(--text);
-  margin:0; padding:0;
-  line-height:1.6;
-}
-body::before {
-  content:"";
-  position:fixed; inset:0; z-index:-1;
-  background: radial-gradient(circle at top left, #11694a15, transparent 60%),
-              radial-gradient(circle at bottom right, #d4af3715, transparent 60%);
-}
-nav {
-  background: var(--bg-light);
-  padding:14px 22px;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  border-bottom:1px solid rgba(255,255,255,0.08);
-}
-nav a { color:var(--muted); margin-left:16px; text-decoration:none; font-weight:600; }
-nav a:hover { color: var(--primary-light); }
-.logo a { font-family:"Poppins",sans-serif; font-weight:700; color: var(--text); text-decoration:none; }
+  main {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 40px 20px;
+  }
 
-.container { max-width: var(--max-width); margin:0 auto; padding:24px; }
+  h1, h2, h3 {
+    font-family: "Poppins", sans-serif;
+    color: white;
+    margin-bottom: 20px;
+  }
 
-.card { background: var(--card); padding:24px; border-radius:var(--radius); border:1px solid rgba(255,255,255,0.05); margin-bottom:40px; transition: transform 0.3s ease; }
-.card:hover { transform: translateY(-4px); }
-h2 { font-family:"Poppins",sans-serif; margin-bottom:16px; color: var(--text); }
-p { margin-bottom:12px; color: var(--muted); }
+  p {
+    margin-bottom: 16px;
+  }
 
-canvas { width:100%; max-width:900px; height:500px !important; display:block; margin:24px auto; border-radius:12px; background:rgba(255,255,255,0.02); box-shadow:0 6px 40px rgba(0,0,0,0.6); }
+  .chart-container {
+    position: relative;
+    width: 100%;
+    max-width: 900px;
+    margin: 40px auto;
+  }
 
-footer { text-align:center; padding:20px; color: var(--muted); font-size:0.9rem; }
+  canvas {
+    background: var(--bg-light);
+    border-radius: var(--radius);
+    padding: 20px;
+  }
+
+  .lead {
+    color: var(--muted);
+    font-size: 1.1rem;
+    margin-bottom: 24px;
+  }
+
+  .section-title {
+    font-size: 2.2rem;
+    margin-bottom: 16px;
+  }
+
+  .floating-contact {
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+    background: var(--primary);
+    color: white;
+    padding: 12px 20px;
+    border-radius: var(--radius);
+    text-decoration: none;
+    font-weight: 700;
+    z-index: 999;
+    transition: background 0.3s;
+  }
+
+  .floating-contact:hover {
+    background: var(--primary-light);
+  }
+
+  .article-content {
+    margin-top: 40px;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 24px 0;
+  }
+
+  table, th, td {
+    border: 1px solid rgba(255,255,255,0.2);
+  }
+
+  th, td {
+    padding: 12px;
+    text-align: center;
+    color: white;
+  }
+
+  th {
+    background: rgba(17,105,74,0.5);
+  }
+
+  td {
+    background: rgba(17,105,74,0.2);
+  }
+
+  .highlight {
+    color: var(--accent);
+    font-weight: 700;
+  }
 
 </style>
 </head>
 <body>
 
-<nav>
-  <div class="logo"><a href="index.html">Amir Elshimi</a></div>
-  <div>
-    <a href="index.html">Home</a>
+<nav class="navbar">
+  <div class="logo"><a href="index.html">Vision • Amir Elshimi</a></div>
+  <div class="nav-links">
+    <a href="about.html">Who I Am</a>
+    <a href="projects.html">Projects</a>
     <a href="blog.html">Insights</a>
     <a href="contact.html">Contact</a>
+    <a class="cv-btn" href="Amir_Elshimi_CV.pdf" target="_blank">Resume</a>
   </div>
 </nav>
 
-<main class="container">
-  <section class="analysis card">
-    <h2>Demon Slayer ROI Analysis</h2>
-    <canvas id="roiChart"></canvas>
-    <p>Production Budget: ~$15M | Box Office: ~$480M | ROI ≈ 32×</p>
-    <p>For comparison: Avengers: Endgame ≈ 8×, Spider-Man: No Way Home ≈ 9×.</p>
-  </section>
+<main>
+  <section class="article-content">
+    <h1 class="section-title">Demon Slayer: Infinity Castle — The Anime Film That Redefined ROI</h1>
+    <p class="lead">By <span class="highlight">Amir Elshimi</span>, Investment Analyst</p>
 
-  <section class="insight card">
-    <h2>Investment Story</h2>
-    <p>Demon Slayer leveraged strong IP, global distribution, merchandise, and streaming deals to generate massive ROI. Strategic marketing amplified revenue far beyond the box office.</p>
-    <p>This shows how small-budget anime movies can outperform Hollywood when combining cultural relevance, global reach, and smart monetization.</p>
+    <p>In July 2025, the global film market witnessed a revolution. <span class="highlight">Demon Slayer: Kimetsu no Yaiba – Infinity Castle</span> hit theaters worldwide, achieving one of the most remarkable returns in cinematic history. With a production budget of <span class="highlight">$20 million</span>, it grossed over <span class="highlight">$605 million</span>, delivering an <span class="highlight">ROI of approximately 30×</span>. This performance positions anime as a compelling investment opportunity in the entertainment industry.</p>
+
+    <p>The success was built on four pillars: a loyal fanbase, strategic release timing, efficient production, and diversified revenue streams including merchandising and streaming rights.</p>
+
+    <h2>Comparative ROI Analysis: Anime vs Hollywood</h2>
+
+    <div class="chart-container">
+      <canvas id="comboChart"></canvas>
+    </div>
+
+        <h2>Film Performance Data</h2>
+    <p>This table compares the ROI and gross revenue of the latest Demon Slayer movie with major Hollywood films.</p>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Film Title</th>
+          <th>Genre</th>
+          <th>Production Budget (USD)</th>
+          <th>Worldwide Gross (USD)</th>
+          <th>ROI (×)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Demon Slayer: Infinity Castle</td>
+          <td>Anime</td>
+          <td>$20M</td>
+          <td>$605M</td>
+          <td>30×</td>
+        </tr>
+        <tr>
+          <td>Demon Slayer: Mugen Train</td>
+          <td>Anime</td>
+          <td>$15.75M</td>
+          <td>$506M</td>
+          <td>32×</td>
+        </tr>
+        <tr>
+          <td>Avengers: Endgame</td>
+          <td>Hollywood</td>
+          <td>$356M</td>
+          <td>$2.798B</td>
+          <td>7.9×</td>
+        </tr>
+        <tr>
+          <td>Spider-Man: No Way Home</td>
+          <td>Hollywood</td>
+          <td>$200M</td>
+          <td>$1.921B</td>
+          <td>9.6×</td>
+        </tr>
+        <tr>
+          <td>Frozen II</td>
+          <td>Hollywood</td>
+          <td>$150M</td>
+          <td>$1.450B</td>
+          <td>9.7×</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p>The chart below visualizes this data. The bars represent worldwide gross revenue (in billions USD), while the line represents ROI. This combo chart highlights how anime films outperform Hollywood blockbusters in **return efficiency**.</p>
+
   </section>
 </main>
 
-<footer>© 2025 Amir Elshimi</footer>
+<a href="contact.html" class="floating-contact">Contact</a>
+
+<footer class="site-footer">
+  <p>© 2025 Amir Elshimi</p>
+</footer>
+
+<!-- Chart.js Library -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <script>
-const ctx = document.getElementById('roiChart').getContext('2d');
+  const ctx = document.getElementById('comboChart').getContext('2d');
 
-const labels = [
-  "Demon Slayer: Mugen Train (Anime)",
-  "Your Name (Anime)",
-  "Spirited Away (Anime)",
-  "Avengers: Endgame (Hollywood)",
-  "Spider-Man: No Way Home (Hollywood)",
-  "Avatar (Hollywood)"
-];
+  const labels = [
+    "Demon Slayer: Infinity Castle",
+    "Demon Slayer: Mugen Train",
+    "Avengers: Endgame",
+    "Spider-Man: No Way Home",
+    "Frozen II"
+  ];
 
-const animeData = [32,35,20,0,0,0];
-const hollywoodData = [0,0,0,8,9,7.5];
+  const grossData = [0.605, 0.506, 2.798, 1.921, 1.450]; // in billions USD
+  const roiData = [30, 32, 7.9, 9.6, 9.7];
 
-// Gradients
-const gradAnime = ctx.createLinearGradient(0,0,0,400);
-gradAnime.addColorStop(0,'rgba(17,105,74,0.9)');
-gradAnime.addColorStop(1,'rgba(17,105,74,0.3)');
-
-const gradHollywood = ctx.createLinearGradient(0,0,0,400);
-gradHollywood.addColorStop(0,'rgba(212,175,55,0.9)');
-gradHollywood.addColorStop(1,'rgba(212,175,55,0.3)');
-
-new Chart(ctx,{
-  type:'bar',
-  data:{
-    labels:labels,
-    datasets:[
-      { label:'Anime ROI (×)', data:animeData, backgroundColor:gradAnime, borderColor:'rgba(17,105,74,1)', borderWidth:2, borderRadius:10, hoverBackgroundColor:'rgba(17,105,74,1)', hoverBorderColor:'#11694a', hoverBorderWidth:3 },
-      { label:'Hollywood ROI (×)', data:hollywoodData, backgroundColor:gradHollywood, borderColor:'rgba(212,175,55,1)', borderWidth:2, borderRadius:10, hoverBackgroundColor:'rgba(212,175,55,1)', hoverBorderColor:'#d4af37', hoverBorderWidth:3 }
-    ]
-  },
-  options:{
-    responsive:true,
-    animation:{duration:1800,easing:'easeOutQuart'},
-    plugins:{
-      legend:{labels:{color:'#e6edf3'}},
-      tooltip:{
-        callbacks:{
-          label:function(ctx){ return ctx.dataset.label + ': ' + (ctx.raw===0?'N/A':ctx.raw+'×'); }
+  const comboChart = new Chart(ctx, {
+    data: {
+      labels: labels,
+      datasets: [
+        {
+          type: 'bar',
+          label: 'Worldwide Gross (Billion USD)',
+          data: grossData,
+          backgroundColor: 'rgba(17,105,74,0.7)',
+          borderRadius: 6
         },
-        backgroundColor:'rgba(2,6,23,0.98)',
-        titleColor:'#ffffff',
-        bodyColor:'#cfefff'
-      }
+        {
+          type: 'line',
+          label: 'ROI (×)',
+          data: roiData,
+          borderColor: '#d4af37',
+          borderWidth: 3,
+          fill: false,
+          tension: 0.3,
+          pointBackgroundColor: '#d4af37',
+          pointRadius: 6
+        }
+      ]
     },
-    scales:{
-      x:{ticks:{color:'#e6edf3'}, grid:{display:false}},
-      y:{beginAtZero:true, suggestedMax:40, ticks:{color:'#e6edf3', callback:function(v){return v+'×';}}, grid:{color:'rgba(255,255,255,0.04)', borderDash:[6,4]}}
+    options: {
+      responsive: true,
+      plugins: {
+        legend: {
+          labels: {
+            color: 'white',
+            font: {
+              size: 14,
+              weight: 600
+            }
+          }
+        },
+        tooltip: {
+          mode: 'index',
+          intersect: false,
+          backgroundColor: '#161b22',
+          titleColor: 'white',
+          bodyColor: 'white'
+        }
+      },
+      scales: {
+        y: {
+          beginAtZero: true,
+          color: 'white',
+          title: {
+            display: true,
+            text: 'Revenue (Billion USD) / ROI',
+            color: 'white',
+            font: {
+              size: 14,
+              weight: 600
+            }
+          },
+          ticks: {
+            color: 'white'
+          },
+          grid: {
+            color: 'rgba(255,255,255,0.1)'
+          }
+        },
+        x: {
+          ticks: { color: 'white', font: { weight: 600 } },
+          grid: { color: 'rgba(255,255,255,0.1)' }
+        }
+      }
     }
-  }
-});
+  });
 </script>
 
 </body>
