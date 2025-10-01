@@ -74,6 +74,18 @@ footer { text-align:center; padding:20px; color: var(--muted); font-size:0.9rem;
     font-size: 0.95rem; /* smaller text on mobile */
   }
 }
+  .chart-wrapper {
+  width: 100%;
+  overflow-x: auto; /* allows horizontal scroll if needed */
+  padding-bottom: 16px;
+}
+
+@media (max-width: 768px) {
+  canvas {
+    height: 350px !important; /* smaller height for mobile */
+  }
+}
+
 
 </style>
 </head>
@@ -91,7 +103,10 @@ footer { text-align:center; padding:20px; color: var(--muted); font-size:0.9rem;
 <main class="container">
   <section class="analysis card">
     <h2>Demon Slayer: Infinity Castle — ROI Analysis</h2>
-    <canvas id="roiChart"></canvas>
+   <div class="chart-wrapper">
+  <canvas id="roiChart"></canvas>
+</div>
+
 
     <p>The latest installment of the Demon Slayer franchise, "Infinity Castle," exemplifies a paradigm shift in entertainment investment. With a production budget of approximately $20 million and a worldwide box office gross exceeding $605 million, this anime film achieved an exceptional return on investment of roughly 30×. Such numbers are rare in traditional Hollywood, where blockbuster budgets often surpass $200 million and ROIs are typically in the 8–10× range. This stark contrast highlights the efficiency and high-profit potential inherent in well-crafted anime productions.</p>
 
@@ -165,22 +180,23 @@ new Chart(ctx,{
     },
     scales:{
       x:{
-        ticks:{color:'#e6edf3', maxRotation:45, minRotation:0, autoSkip:true, maxTicksLimit:6},
-        grid:{display:false}
-      },
-      y:{
         beginAtZero:true,
         suggestedMax:40,
         ticks:{
           color:'#e6edf3',
-          callback:function(v){return v+'×';},
+          callback:function(v){ return v+'×'; },
           stepSize:5
         },
         grid:{color:'rgba(255,255,255,0.04)', borderDash:[6,4]}
+      },
+      y:{
+        ticks:{color:'#e6edf3'},
+        grid:{display:false}
       }
     }
   }
 });
+
 
 
 </body>
