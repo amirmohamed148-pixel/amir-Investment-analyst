@@ -55,6 +55,26 @@ p { margin-bottom:16px; color: var(--muted); }
 canvas { width:100%; max-width:900px; height:500px !important; display:block; margin:24px auto; border-radius:12px; background:rgba(255,255,255,0.02); box-shadow:0 6px 40px rgba(0,0,0,0.6); }
 
 footer { text-align:center; padding:20px; color: var(--muted); font-size:0.9rem; }
+
+  /* Responsive adjustments for charts */
+@media (max-width: 768px) {
+  canvas {
+    height: 300px !important; /* smaller height on mobile */
+  }
+
+  .card {
+    padding: 16px; /* reduce padding for mobile */
+  }
+
+  h2 {
+    font-size: 1.8rem; /* smaller headings on mobile */
+  }
+
+  p {
+    font-size: 0.95rem; /* smaller text on mobile */
+  }
+}
+
 </style>
 </head>
 <body>
@@ -97,17 +117,18 @@ footer { text-align:center; padding:20px; color: var(--muted); font-size:0.9rem;
 const ctx = document.getElementById('roiChart').getContext('2d');
 
 const labels = [
-  "Demon Slayer: Infinity Castle (Anime)",
   "Demon Slayer: Mugen Train (Anime)",
   "Your Name (Anime)",
+  "Spirited Away (Anime)",
   "Avengers: Endgame (Hollywood)",
   "Spider-Man: No Way Home (Hollywood)",
   "Avatar (Hollywood)"
 ];
 
-const animeData = [30,32,35,0,0,0];
+const animeData = [32,35,20,0,0,0];
 const hollywoodData = [0,0,0,8,9,7.5];
 
+// Gradients
 const gradAnime = ctx.createLinearGradient(0,0,0,400);
 gradAnime.addColorStop(0,'rgba(17,105,74,0.9)');
 gradAnime.addColorStop(1,'rgba(17,105,74,0.3)');
@@ -121,31 +142,46 @@ new Chart(ctx,{
   data:{
     labels:labels,
     datasets:[
-      { label:'Anime ROI (×)', data:animeData, backgroundColor:gradAnime, borderColor:'rgba(17,105,74,1)', borderWidth:2, borderRadius:10, hoverBackgroundColor:'rgba(17,105,74,1)', hoverBorderColor:'#11694a', hoverBorderWidth:3 },
-      { label:'Hollywood ROI (×)', data:hollywoodData, backgroundColor:gradHollywood, borderColor:'rgba(212,175,55,1)', borderWidth:2, borderRadius:10, hoverBackgroundColor:'rgba(212,175,55,1)', hoverBorderColor:'#d4af37', hoverBorderWidth:3 }
+      { label:'Anime ROI (×)', data:animeData, backgroundColor:gradAnime, borderColor:'rgba(17,105,74,1)', borderWidth:2, borderRadius:10 },
+      { label:'Hollywood ROI (×)', data:hollywoodData, backgroundColor:gradHollywood, borderColor:'rgba(212,175,55,1)', borderWidth:2, borderRadius:10 }
     ]
   },
   options:{
     responsive:true,
+    maintainAspectRatio:false,
     animation:{duration:1800,easing:'easeOutQuart'},
     plugins:{
-      legend:{labels:{color:'#e6edf3'}},
+      legend:{labels:{color:'#e6edf3', boxWidth:20, padding:15}},
       tooltip:{
         callbacks:{
           label:function(ctx){ return ctx.dataset.label + ': ' + (ctx.raw===0?'N/A':ctx.raw+'×'); }
         },
         backgroundColor:'rgba(2,6,23,0.98)',
         titleColor:'#ffffff',
-        bodyColor:'#cfefff'
+        bodyColor:'#cfefff',
+        padding:12,
+        displayColors:true
       }
     },
     scales:{
-      x:{ticks:{color:'#e6edf3'}, grid:{display:false}},
-      y:{beginAtZero:true, suggestedMax:40, ticks:{color:'#e6edf3', callback:function(v){return v+'×';}}, grid:{color:'rgba(255,255,255,0.04)', borderDash:[6,4]}}
+      x:{
+        ticks:{color:'#e6edf3', maxRotation:45, minRotation:0, autoSkip:true, maxTicksLimit:6},
+        grid:{display:false}
+      },
+      y:{
+        beginAtZero:true,
+        suggestedMax:40,
+        ticks:{
+          color:'#e6edf3',
+          callback:function(v){return v+'×';},
+          stepSize:5
+        },
+        grid:{color:'rgba(255,255,255,0.04)', borderDash:[6,4]}
+      }
     }
   }
 });
-</script>
+
 
 </body>
 </html>
